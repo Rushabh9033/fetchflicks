@@ -1,6 +1,7 @@
+fastapi==0.103.2
+uvicorn==0.23.2
 flask==2.3.3
 pytubefix>=6.0.0
-gunicorn==21.2.0
 instaloader==4.12
 requests==2.31.0
 tqdm==4.66.1

@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Database
+*.db
+
+# Media
+*.png
+facebook/Downloads/
+facebook/merged/
+facebook/webapp/downloads/
+facebook/webapp/merged/
+
+# Scripts
+*.bat
+*.ps1
+
+# Folders
+experiment/
+Instagram-reels-downloader/
+static_version/
+facebook/
+instagram_reel_downloader/
+
+# Documentation
+*.md
+LICENSE
