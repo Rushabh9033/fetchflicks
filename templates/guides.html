@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides | FetchFlicks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">FetchFlicks</span>
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('index') }}" class="nav-link">YouTube</a>
+                <a href="{{ url_for('facebook_page') }}" class="nav-link">Facebook</a>
+                <a href="{{ url_for('instagram_page') }}" class="nav-link">Instagram</a>
+                <a href="{{ url_for('about') }}" class="nav-link">About</a>
+                <a href="{{ url_for('help') }}" class="nav-link">Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <h1 class="card-title">How to Use FetchFlicks</h1>
+                <p class="card-description">A step-by-step guide to downloading videos from YouTube, Facebook, Instagram, and more.</p>
+                <ol>
+                    <li><strong>Find Your Video:</strong> Go to YouTube, Facebook, or Instagram and copy the link of the video you want to download.</li>
+                    <li><strong>Paste the Link:</strong> On the FetchFlicks homepage, paste your video link into the input box.</li>
+                    <li><strong>Choose Quality:</strong> Select your preferred resolution and format from the available options.</li>
+                    <li><strong>Download:</strong> Click "Fetch Video" and follow the instructions to save the video to your device.</li>
+                </ol>
+                <h2>Safety & Legal Tips</h2>
+                <ul>
+                    <li>Download videos only for personal use and with permission.</li>
+                    <li>Do not share or distribute copyrighted content.</li>
+                    <li>Respect the terms of service of each platform.</li>
+                    <li>Check your device for enough storage space before downloading.</li>
+                    <li>If you encounter issues, visit our <a href="/help">Help</a> or <a href="/faq">FAQ</a> pages.</li>
+                </ul>
+                <h2>Supported Platforms</h2>
+                <ul>
+                    <li>YouTube</li>
+                    <li>Facebook</li>
+                    <li>Instagram</li>
+                    <li>Twitter (coming soon)</li>
+                    <li>TikTok (coming soon)</li>
+                </ul>
+                <h2>Need More Help?</h2>
+                <p>Check out our <a href="/faq">FAQ</a> or <a href="/contact">Contact</a> page for more information and support.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>FetchFlicks &copy; 2025 | Developed by Rushabh Mavani</p>
+            <div class="footer-links">
+                <a href="/credits">Credits</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/contact">Contact</a>
+                <a href="/feedback">Feedback</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

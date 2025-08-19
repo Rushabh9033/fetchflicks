@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchFlicks - Video Downloader</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">FetchFlicks</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link active">YouTube</a>
+                <a href="facebook.html" class="nav-link">Facebook</a>
+                <a href="instagram.html" class="nav-link">Instagram</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <h1 class="card-title">FetchFlicks Video Downloader</h1>
+                <p class="card-description">Download videos from YouTube, Facebook, Instagram and more</p>
+                
+                <!-- YouTube Downloader -->
+                <div class="downloader-section" id="youtube-section">
+                    <h2 class="section-title">YouTube Video Downloader</h2>
+                    <form id="youtube-form" class="download-form">
+                        <div class="form-group">
+                            <input type="url" 
+                                   id="youtube-url" 
+                                   placeholder="Paste YouTube video URL here..." 
+                                   class="input-field" 
+                                   required>
+                        </div>
+                        <button type="submit" class="submit-btn">Get Video Info</button>
+                    </form>
+                    
+                    <!-- Video Info Display -->
+                    <div id="video-info" class="video-info" style="display: none;">
+                        <div class="video-preview">
+                            <img id="video-thumbnail" src="" alt="Video Thumbnail" class="video-thumbnail">
+                            <div class="video-details">
+                                <h3 id="video-title"></h3>
+                                <p id="video-author"></p>
+                                <p id="video-duration"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="download-options">
+                            <h4>Download Options:</h4>
+                            <div id="download-links"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation to other platforms -->
+                <div class="platform-navigation">
+                    <a href="facebook.html" class="platform-card">
+                        <span class="platform-icon">📘</span>
+                        <span class="platform-name">Facebook Videos</span>
+                    </a>
+                    <a href="instagram.html" class="platform-card">
+                        <span class="platform-icon">📱</span>
+                        <span class="platform-name">Instagram Reels</span>
+                    </a>
+                </div>
+                
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <p><strong>Note:</strong> This is a demo version. For full functionality, please use our server-based application. Due to CORS restrictions and API limitations, client-side video downloading has limited capabilities.</p>
+                    <p><strong>Alternative:</strong> We recommend using our hosted version or browser extensions for downloading videos.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>FetchFlicks &copy; 2025 | Developed by Rushabh Mavani</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+                <a href="feedback.html">Feedback</a>
+            </div>
+            <div class="footer-disclaimer">
+                <p>FetchFlicks is not affiliated with YouTube, Facebook, Instagram, or any video platform. Users are responsible for ensuring they have the right to download any content.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

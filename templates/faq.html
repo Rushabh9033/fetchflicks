@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | FetchFlicks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">FetchFlicks</span>
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('index') }}" class="nav-link">YouTube</a>
+                <a href="{{ url_for('facebook_page') }}" class="nav-link">Facebook</a>
+                <a href="{{ url_for('instagram_page') }}" class="nav-link">Instagram</a>
+                <a href="{{ url_for('about') }}" class="nav-link">About</a>
+                <a href="{{ url_for('help') }}" class="nav-link">Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <h1 class="card-title">Frequently Asked Questions</h1>
+                <ul>
+                    <li><strong>Is it legal to download videos?</strong><br>Only download videos for personal use and with permission. Do not download copyrighted content illegally.</li>
+                    <li><strong>Which platforms are supported?</strong><br>YouTube, Facebook, Instagram, and more coming soon.</li>
+                    <li><strong>Can I use this on my phone?</strong><br>Yes! The site is mobile-friendly.</li>
+                    <li><strong>How do I report a bug?</strong><br>Visit our <a href="/feedback">Feedback</a> page.</li>
+                    <li><strong>Is FetchFlicks free?</strong><br>Yes, FetchFlicks is completely free to use.</li>
+                    <li><strong>Do I need to register?</strong><br>No registration is required. Just paste your video link and download.</li>
+                    <li><strong>Which platforms are supported?</strong><br>Currently, FetchFlicks supports YouTube, Facebook, and Instagram. Twitter and TikTok support are coming soon.</li>
+                    <li><strong>Is it legal to download videos?</strong><br>Downloading videos is allowed for personal use only. Please respect copyright laws and platform terms of service.</li>
+                    <li><strong>How do I contact support?</strong><br>Use our <a href="/contact">Contact</a> page or email <a href="mailto:rushabhmavani00@gmail.com">rushabhmavani00@gmail.com</a>.</li>
+                </ul>
+                <div class="notes-section" style="margin-top:30px;">
+                    <strong>Disclaimer:</strong> FetchFlicks is intended for personal use only. Users are responsible for ensuring they have the right to download any content. Please respect copyright laws and platform terms of service.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>FetchFlicks &copy; 2025 | Developed by Rushabh Mavani</p>
+            <div class="footer-links">
+                <a href="/credits">Credits</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/contact">Contact</a>
+                <a href="/feedback">Feedback</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

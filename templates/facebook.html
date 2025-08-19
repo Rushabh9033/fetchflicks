@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Video Downloader | FetchFlicks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">FetchFlicks</span>
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('index') }}" class="nav-link">YouTube</a>
+                <a href="{{ url_for('facebook_page') }}" class="nav-link active">Facebook</a>
+                <a href="{{ url_for('instagram_page') }}" class="nav-link">Instagram</a>
+                <a href="{{ url_for('about') }}" class="nav-link">About</a>
+                <a href="{{ url_for('help') }}" class="nav-link">Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="card">
+                <h1 class="card-title">Facebook Video Downloader | FetchFlicks</h1>
+                <p class="card-description">Download Facebook videos in HD quality</p>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for message in messages %}
+                                <div class="flash-message error">
+                                    <span class="flash-icon">⚠️</span>
+                                    <div class="flash-content">{{ message }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Facebook Download Form -->
+                <form method="POST" action="{{ url_for('download_facebook_video') }}" id="facebookForm">
+                    <div class="form-group">
+                        <label for="facebook_url" class="input-label">Facebook Video URL</label>
+                        <input type="url" 
+                               id="facebook_url" 
+                               name="facebook_url" 
+                               class="input-field" 
+                               placeholder="https://www.facebook.com/..."
+                               required>
+                    </div>
+                    
+                    <!-- Progress Bar Container -->
+                    <div id="progressContainer" class="progress-container" style="display: none;">
+                        <div class="progress-label">
+                            <span id="progressText">Preparing download...</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <div class="progress-status" id="progressStatus">Starting...</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="downloadBtn">
+                        <span id="btnText">Download Facebook Video</span>
+                        <span id="btnSpinner" class="spinner" style="display: none;"></span>
+                    </button>
+                </form>
+                
+                <style>
+                .progress-container {
+                    margin: 20px 0;
+                    padding: 15px;
+                    background: var(--accent-black);
+                    border: 1px solid var(--dark-gray);
+                    border-radius: 8px;
+                }
+
+                .progress-label {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    color: var(--light-gray);
+                    font-size: 14px;
+                }
+
+                .progress-bar {
+                    width: 100%;
+                    height: 8px;
+                    background: var(--dark-gray);
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+
+                .progress-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #4267B2, #365899);
+                    border-radius: 4px;
+                    transition: width 0.3s ease;
+                    width: 0%;
+                }
+
+                .progress-status {
+                    margin-top: 8px;
+                    color: var(--light-gray);
+                    font-size: 12px;
+                    font-style: italic;
+                }
+
+                .spinner {
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid var(--dark-gray);
+                    border-radius: 50%;
+                    border-top-color: var(--white);
+                    animation: spin 1s ease-in-out infinite;
+                    margin-left: 8px;
+                }
+
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+
+                .submit-btn:disabled {
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+                </style>
+                
+                <script>
+                document.getElementById('facebookForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const form = this;
+                    const progressContainer = document.getElementById('progressContainer');
+                    const progressFill = document.getElementById('progressFill');
+                    const progressText = document.getElementById('progressText');
+                    const progressPercent = document.getElementById('progressPercent');
+                    const progressStatus = document.getElementById('progressStatus');
+                    const downloadBtn = document.getElementById('downloadBtn');
+                    const btnText = document.getElementById('btnText');
+                    const btnSpinner = document.getElementById('btnSpinner');
+                    
+                    // Show progress and disable button
+                    progressContainer.style.display = 'block';
+                    downloadBtn.disabled = true;
+                    btnText.style.display = 'none';
+                    btnSpinner.style.display = 'inline-block';
+                    
+                    // Simulate progress
+                    const steps = [
+                        { percent: 15, text: 'Validating Facebook URL...', status: 'Checking URL format and accessibility' },
+                        { percent: 30, text: 'Connecting to Facebook API...', status: 'Establishing secure connection' },
+                        { percent: 50, text: 'Fetching video metadata...', status: 'Retrieving video information' },
+                        { percent: 70, text: 'Locating HD video source...', status: 'Finding best quality stream' },
+                        { percent: 85, text: 'Downloading video...', status: 'Transferring video content' },
+                        { percent: 95, text: 'Processing...', status: 'Preparing download link' }
+                    ];
+                    
+                    let stepIndex = 0;
+                    const interval = setInterval(() => {
+                        if (stepIndex < steps.length) {
+                            const step = steps[stepIndex];
+                            progressFill.style.width = step.percent + '%';
+                            progressText.textContent = step.text;
+                            progressPercent.textContent = step.percent + '%';
+                            progressStatus.textContent = step.status;
+                            stepIndex++;
+                        } else {
+                            clearInterval(interval);
+                            // Submit the actual form
+                            submitActualForm();
+                        }
+                    }, 900);
+                    
+                    function submitActualForm() {
+                        progressFill.style.width = '100%';
+                        progressText.textContent = 'Completing download...';
+                        progressPercent.textContent = '100%';
+                        progressStatus.textContent = 'Finalizing...';
+                        
+                        // Create form data and submit
+                        const formData = new FormData(form);
+                        
+                        fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        }).then(response => {
+                            if (response.ok && response.headers.get('content-disposition')) {
+                                // File download
+                                return response.blob().then(blob => {
+                                    const url = window.URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = 'facebook_video.mp4';
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+                                    document.body.removeChild(a);
+                                    
+                                    // Reset UI
+                                    setTimeout(() => {
+                                        resetProgress();
+                                        progressStatus.textContent = 'Download completed successfully!';
+                                        progressFill.style.background = '#4267B2';
+                                    }, 500);
+                                });
+                            } else {
+                                // Redirect or error
+                                window.location.href = response.url;
+                            }
+                        }).catch(error => {
+                            resetProgress();
+                            progressStatus.textContent = 'Download failed. Please try again.';
+                            progressFill.style.background = '#f44336';
+                        });
+                    }
+                    
+                    function resetProgress() {
+                        downloadBtn.disabled = false;
+                        btnText.style.display = 'inline';
+                        btnSpinner.style.display = 'none';
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                            progressFill.style.width = '0%';
+                            progressFill.style.background = 'linear-gradient(90deg, #4267B2, #365899)';
+                        }, 3000);
+                    }
+                });
+                </script>
+
+                <div class="notes-section">
+                    <h3 class="section-title">How to use:</h3>
+                    <ul class="features-list">
+                        <li>Copy the Facebook video URL from your browser</li>
+                        <li>Paste it in the input field above</li>
+                        <li>Click "Download Facebook Video"</li>
+                        <li>The video will be downloaded in HD quality</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>FetchFlicks &copy; 2025 | Developed by Rushabh Mavani</p>
+            <div class="footer-links">
+                <a href="/credits">Credits</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/contact">Contact</a>
+                <a href="/feedback">Feedback</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

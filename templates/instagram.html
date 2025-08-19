@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Reel Downloader | FetchFlicks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">FetchFlicks</span>
+            </a>
+            <nav class="nav-links">
+                <a href="/" class="nav-link">YouTube</a>
+                <a href="/facebook" class="nav-link">Facebook</a>
+                <a href="/instagram" class="nav-link active">Instagram</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/help" class="nav-link">Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <div style="margin-bottom: 30px; text-align: center; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="/" class="nav-link" style="
+                        display: inline-block;
+                        padding: 12px 24px;
+                        background-color: var(--accent-black);
+                        border: 2px solid var(--dark-gray);
+                        border-radius: 8px;
+                        color: var(--light-gray);
+                        text-decoration: none;
+                        font-weight: 500;
+                        transition: var(--transition);
+                        margin-bottom: 0;
+                    " onmouseover="this.style.borderColor='var(--white)'; this.style.color='var(--white)'; this.style.backgroundColor='var(--secondary-black)'" 
+                       onmouseout="this.style.borderColor='var(--dark-gray)'; this.style.color='var(--light-gray)'; this.style.backgroundColor='var(--accent-black)'">
+                        📺 YouTube Video Downloader
+                    </a>
+                    <a href="/facebook" class="nav-link" style="
+                        display: inline-block;
+                        padding: 12px 24px;
+                        background-color: var(--accent-black);
+                        border: 2px solid var(--dark-gray);
+                        border-radius: 8px;
+                        color: var(--light-gray);
+                        text-decoration: none;
+                        font-weight: 500;
+                        transition: var(--transition);
+                        margin-bottom: 0;
+                    " onmouseover="this.style.borderColor='var(--white)'; this.style.color='var(--white)'; this.style.backgroundColor='var(--secondary-black)'" 
+                       onmouseout="this.style.borderColor='var(--dark-gray)'; this.style.color='var(--light-gray)'; this.style.backgroundColor='var(--accent-black)'">
+                        📘 Facebook Video Downloader
+                    </a>
+                </div>
+                
+                <h1 class="card-title">📱 Instagram Reel Downloader</h1>
+                <p class="card-description">Enter an Instagram reel or post URL to download the video</p>
+                
+                <div class="flash-messages">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="flash-message error">
+                                    <span class="flash-icon">⚠</span>
+                                    <span class="flash-content">{{ message }}</span>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                
+                <form action="/instagram/download" method="POST" id="instagramForm">
+                    <div class="form-group">
+                        <label for="instagram_url" class="input-label">Instagram Reel/Post URL</label>
+                        <input type="text" id="instagram_url" name="instagram_url" class="input-field" 
+                               placeholder="https://www.instagram.com/reel/..." required>
+                    </div>
+                    
+                    <!-- Progress Bar Container -->
+                    <div id="progressContainer" class="progress-container" style="display: none;">
+                        <div class="progress-label">
+                            <span id="progressText">Preparing download...</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <div class="progress-status" id="progressStatus">Starting...</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="downloadBtn">
+                        <span id="btnText">Download Reel</span>
+                        <span id="btnSpinner" class="spinner" style="display: none;"></span>
+                    </button>
+                </form>
+                
+                <style>
+                .progress-container {
+                    margin: 20px 0;
+                    padding: 15px;
+                    background: var(--accent-black);
+                    border: 1px solid var(--dark-gray);
+                    border-radius: 8px;
+                }
+
+                .progress-label {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    color: var(--light-gray);
+                    font-size: 14px;
+                }
+
+                .progress-bar {
+                    width: 100%;
+                    height: 8px;
+                    background: var(--dark-gray);
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+
+                .progress-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #4CAF50, #45a049);
+                    border-radius: 4px;
+                    transition: width 0.3s ease;
+                    width: 0%;
+                }
+
+                .progress-status {
+                    margin-top: 8px;
+                    color: var(--light-gray);
+                    font-size: 12px;
+                    font-style: italic;
+                }
+
+                .spinner {
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid var(--dark-gray);
+                    border-radius: 50%;
+                    border-top-color: var(--white);
+                    animation: spin 1s ease-in-out infinite;
+                    margin-left: 8px;
+                }
+
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+
+                .submit-btn:disabled {
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+                </style>
+                
+                <script>
+                document.getElementById('instagramForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const form = this;
+                    const progressContainer = document.getElementById('progressContainer');
+                    const progressFill = document.getElementById('progressFill');
+                    const progressText = document.getElementById('progressText');
+                    const progressPercent = document.getElementById('progressPercent');
+                    const progressStatus = document.getElementById('progressStatus');
+                    const downloadBtn = document.getElementById('downloadBtn');
+                    const btnText = document.getElementById('btnText');
+                    const btnSpinner = document.getElementById('btnSpinner');
+                    
+                    // Show progress and disable button
+                    progressContainer.style.display = 'block';
+                    downloadBtn.disabled = true;
+                    btnText.style.display = 'none';
+                    btnSpinner.style.display = 'inline-block';
+                    
+                    // Simulate progress
+                    let progress = 0;
+                    const steps = [
+                        { percent: 10, text: 'Validating URL...', status: 'Checking Instagram URL format' },
+                        { percent: 25, text: 'Connecting to Instagram...', status: 'Establishing connection' },
+                        { percent: 40, text: 'Fetching video data...', status: 'Retrieving post information' },
+                        { percent: 60, text: 'Analyzing content...', status: 'Checking video availability' },
+                        { percent: 80, text: 'Downloading video...', status: 'Downloading content to server' },
+                        { percent: 95, text: 'Processing...', status: 'Preparing download link' }
+                    ];
+                    
+                    let stepIndex = 0;
+                    const interval = setInterval(() => {
+                        if (stepIndex < steps.length) {
+                            const step = steps[stepIndex];
+                            progressFill.style.width = step.percent + '%';
+                            progressText.textContent = step.text;
+                            progressPercent.textContent = step.percent + '%';
+                            progressStatus.textContent = step.status;
+                            stepIndex++;
+                        } else {
+                            clearInterval(interval);
+                            // Submit the actual form
+                            submitActualForm();
+                        }
+                    }, 800);
+                    
+                    function submitActualForm() {
+                        progressFill.style.width = '100%';
+                        progressText.textContent = 'Completing download...';
+                        progressPercent.textContent = '100%';
+                        progressStatus.textContent = 'Finalizing...';
+                        
+                        // Create form data and submit
+                        const formData = new FormData(form);
+                        
+                        fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        }).then(response => {
+                            if (response.ok && response.headers.get('content-disposition')) {
+                                // File download
+                                return response.blob().then(blob => {
+                                    const url = window.URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = 'instagram_video.mp4';
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    window.URL.revokeObjectURL(url);
+                                    document.body.removeChild(a);
+                                    
+                                    // Reset UI
+                                    setTimeout(() => {
+                                        resetProgress();
+                                        progressStatus.textContent = 'Download completed successfully!';
+                                        progressFill.style.background = '#4CAF50';
+                                    }, 500);
+                                });
+                            } else {
+                                // Redirect or error
+                                window.location.href = response.url;
+                            }
+                        }).catch(error => {
+                            resetProgress();
+                            progressStatus.textContent = 'Download failed. Please try again.';
+                            progressFill.style.background = '#f44336';
+                        });
+                    }
+                    
+                    function resetProgress() {
+                        downloadBtn.disabled = false;
+                        btnText.style.display = 'inline';
+                        btnSpinner.style.display = 'none';
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                            progressFill.style.width = '0%';
+                            progressFill.style.background = 'linear-gradient(90deg, #4CAF50, #45a049)';
+                        }, 3000);
+                    }
+                });
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>FetchFlicks &copy; 2025 | Developed by Rushabh Mavani</p>
+            <div class="footer-links">
+                <a href="/credits">Credits</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/contact">Contact</a>
+                <a href="/feedback">Feedback</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

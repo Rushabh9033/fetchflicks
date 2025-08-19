@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchFlicks | Help</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">FetchFlicks</span>
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('index') }}" class="nav-link">YouTube</a>
+                <a href="{{ url_for('facebook_page') }}" class="nav-link">Facebook</a>
+                <a href="{{ url_for('instagram_page') }}" class="nav-link">Instagram</a>
+                <a href="{{ url_for('about') }}" class="nav-link">About</a>
+                <a href="{{ url_for('help') }}" class="nav-link active">Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <h1 class="card-title">Help & FAQ</h1>
+                <p class="card-description">Frequently asked questions and usage guide</p>
+                
+                <div class="help-content">
+                    <div class="faq-section">
+                        <h2 class="section-title">How to Use</h2>
+                        <div class="faq-item">
+                            <h3 class="faq-question">1. How do I download a YouTube video?</h3>
+                            <p class="faq-answer">
+                                Simply copy and paste the YouTube video URL into the input field on the homepage and click "Fetch Video". 
+                                You'll then be presented with various resolution options to choose from.
+                            </p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 class="faq-question">2. How do I download audio only?</h3>
+                            <p class="faq-answer">
+                                After fetching the video, you'll see audio-only options in the resolution list. These are labeled as "Audio" 
+                                and show the bitrate (e.g., 128kbps). Select one of these options to download just the audio.
+                            </p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 class="faq-question">3. What video formats are supported?</h3>
+                            <p class="faq-answer">
+                                The downloader supports MP4 video format. For audio-only downloads, you can choose from various quality 
+                                options ranging from 64kbps to 320kbps.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-section">
+                        <h2 class="section-title">Troubleshooting</h2>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Why can't I download some videos?</h3>
+                            <p class="faq-answer">
+                                Some YouTube videos have restrictions that prevent downloading. This includes:
+                                <ul>
+                                    <li>Age-restricted content</li>
+                                    <li>Copyright-protected material</li>
+                                    <li>Live streams (before or during broadcast)</li>
+                                    <li>Videos with special regional restrictions</li>
+                                </ul>
+                            </p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 class="faq-question">Download failed or interrupted?</h3>
+                            <p class="faq-answer">
+                                If a download fails or gets interrupted, try these steps:
+                                <ol>
+                                    <li>Check your internet connection</li>
+                                    <li>Try downloading a different resolution</li>
+                                    <li>Refresh the page and try again</li>
+                                    <li>Clear your browser cache</li>
+                                </ol>
+                            </p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 class="faq-question">Why is my download slow?</h3>
+                            <p class="faq-answer">
+                                Download speeds depend on several factors:
+                                <ul>
+                                    <li>Your internet connection speed</li>
+                                    <li>YouTube's server load</li>
+                                    <li>Video resolution (higher = slower)</li>
+                                    <li>Current traffic on the network</li>
+                                </ul>
+                                The progress bar will show real-time download status.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-section">
+                        <h2 class="section-title">Legal & Ethical Usage</h2>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Is this legal?</h3>
+                            <p class="faq-answer">
+                                This tool is legal to use, but you should:
+                                <ul>
+                                    <li>Only download content you have rights to</li>
+                                    <li>Respect content creators' intellectual property</li>
+                                    <li>Use downloaded content for personal purposes only</li>
+                                    <li>Comply with YouTube's Terms of Service</li>
+                                </ul>
+                            </p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 class="faq-question">What about copyright?</h3>
+                            <p class="faq-answer">
+                                Copyright is an important consideration. We recommend:
+                                <ul>
+                                    <li>Only downloading videos you created or own</li>
+                                    <li>Getting permission from content creators before downloading</li>
+                                    <li>Not redistributing downloaded content without permission</li>
+                                    <li>Checking if content has a Creative Commons license</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="/" class="back-link">← Back to Home</a>
+            </div>
+        </div>
+    </main>
+                <h2>Having Trouble?</h2>
+                <ul>
+                    <li>Make sure your video link is correct and public.</li>
+                    <li>Check your internet connection.</li>
+                    <li>Try refreshing the page or restarting your browser.</li>
+                </ul>
+                <h2>Contact Us</h2>
+                <p>If you still need help, visit our <a href="/contact">Contact</a> page or email <a href="mailto:support@savetube.com">support@savetube.com</a>.</p>
+                <h2>More Resources</h2>
+                <p>See our <a href="/faq">FAQ</a> and <a href="/guides">Guides</a> for more information.</p>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>FetchFlicks &copy; 2025 | Developed by Rushabh Mavani</p>
+            <div class="footer-links">
+                <a href="/credits">Credits</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/contact">Contact</a>
+                <a href="/feedback">Feedback</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
